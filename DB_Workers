@@ -6,9 +6,11 @@ CREATE TABLE `Workers` (
 );
 
 CREATE TABLE `Work_Time` (
-	`Worker_id` INT NOT NULL,
+	`Worker_id` INT NOT NULL UNIQUE,
 	`Start_Shift` TIME NOT NULL,
-	`End_Shift` TIME NOT NULL
+	`End_Shift` TIME,
+	`Shift_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	PRIMARY KEY (`Shift_id`)
 );
 
 ALTER TABLE `Work_Time` ADD CONSTRAINT `Work_Time_fk0` FOREIGN KEY (`Worker_id`) REFERENCES `Workers`(`Worker_id`);
