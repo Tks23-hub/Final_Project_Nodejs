@@ -1,0 +1,37 @@
+<%- include("page_top.ejs") %>
+
+<h2>Choose ID</h2>
+<input type="number" id="chosenID" placeholder="Enter Worker ID">
+
+<div style="text-align: center; margin-top: 200px">
+    <button onclick="Start_Shift()">Start_Shift</button>
+    <button onclick="End_Shift()">End_Shift</button>
+</div>
+
+<script>
+    async function Start_Shift() {
+        let workerID = document.getElementById("chosenID").value;
+        let startShiftTime = new Date().toISOString(); //this is GMT time
+        let response = await fetch(`/workingHours/AddStart`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Worker_id: workerID, Start_Shift: startShiftTime })
+        });
+    }
+
+    async function End_Shift() {
+        let workerID = document.getElementById("chosenID").value;
+        let endShiftTime = new Date().toISOString(); //this is GMT time
+
+        let response = await fetch(`/workingHours/AddEnd`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Worker_id: workerID, End_Shift: endShiftTime })
+        });
+    }
+
+</script>
