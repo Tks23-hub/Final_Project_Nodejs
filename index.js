@@ -17,6 +17,8 @@ app.use('/workers', fe_rtr);
 const workTime = require('./working_hours');
 app.use('/workingHours', workTime);
 
+const fe = require('./views/FE_R');
+app.use('/', fe);
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
     console.log(`Now listening on port http://localhost:${port}`);
 });

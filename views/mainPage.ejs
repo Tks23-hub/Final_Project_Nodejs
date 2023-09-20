@@ -1,0 +1,114 @@
+<%- include("page_top.ejs") %>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Worker_FirstName</th>
+        <th>Worker_LastName</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="mainTable"> </tbody>
+</table>
+<h2>Add New User</h2>
+<br>
+<input type="text" id="Worker_FirstName" placeholder="Worker_FirstName">
+<input type="text" id="Worker_LastName" placeholder="Worker_LastName">
+<button onclick="addNewLine()">Add User</button>
+<br>
+<br>
+<h2>Delete User by ID</h2>
+<br>
+<br>
+<input type="text" id="deleteWorkerID" placeholder="Enter Worker ID">
+<br>
+<br>
+<button onclick="deleteLine(id)">Delete User by ID</button>
+
+<br>
+<br>
+
+<h2>Update User</h2>
+<br>
+<br>
+<input type="text" id="updateWorkerID" placeholder="Enter Worker ID">
+<input type="text" id="updatedFirstName" placeholder="Updated First Name">
+<input type="text" id="updatedLastName" placeholder="Updated Last Name">
+<button onclick="editLine()">Update User</button>
+
+
+
+
+<button></button>
+
+<script>
+    let raw_data = [];
+    function createTable() {
+        let str = "";
+        for (let line of raw_data) {
+            str += "<tr>";
+            str += "<td>" + line.Worker_id + "</td>";
+            str += "<td>" + line.Worker_FirstName + "</td>";
+            str += "<td>" + line.Worker_LastName + "</td>";
+            str += "</tr>";
+        }
+        document.getElementById("mainTable").innerHTML = str;
+    }
+    async function getList() {
+        let response = await fetch('/workers/List');
+        let data = await response.json();
+        raw_data = data;
+        createTable();
+    }
+    async function addNewLine() {
+        let Worker_FirstName = document.getElementById("Worker_FirstName").value;
+        let Worker_LastName = document.getElementById("Worker_LastName").value;
+        let response = await fetch('/workers/Add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({Worker_FirstName:Worker_FirstName,Worker_LastName:Worker_LastName })
+        });
+        getList();
+    }
+
+    async function deleteLine() {
+        let workerID = document.getElementById("deleteWorkerID").value;
+        let response = await fetch(`/workers/Del/${workerID}`, {
+            method: 'DELETE'
+        });
+        getList();
+    }
+
+
+    async function editLine() {
+        let workerID = document.getElementById("updateWorkerID").value;
+        let updatedFirstName = document.getElementById("updatedFirstName").value;
+        let updatedLastName = document.getElementById("updatedLastName").value;
+
+        if (!workerID || (!updatedFirstName && !updatedLastName)) {
+            return;
+        }
+
+        let response = await fetch(`/workers/Edit/${workerID}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Worker_FirstName: updatedFirstName, Worker_LastName: updatedLastName })
+        });
+
+       getList();
+    }
+
+
+
+
+
+    getList();
+
+</script>
+
+<%- include("page_bottom.ejs") %>
