@@ -1,0 +1,71 @@
+<%- include("page_top.ejs") %>
+
+<h2>View Shifts</h2>
+
+<label for="workerID">Worker ID:</label>
+<input type="text" id="workerID" />
+<button onclick="filterShifts()">Filter</button>
+<br><br>
+
+<table>
+    <thead>
+    <tr>
+        <th>Shift Number</th>
+        <th>Worker ID</th>
+        <th>Entry Time</th>
+        <th>Exit Time</th>
+    </tr>
+    </thead>
+    <tbody id="shiftTable"></tbody>
+</table>
+
+<script>
+    function loadAllShifts() {
+        let tableBody = document.getElementById("shiftTable");
+        fetch(`/workingHours/List`)
+            .then(response => response.json())
+            .then(data => {
+                let html = '';
+                for (let i = 1; i < data.length; i++) {
+                    html += `<tr>
+                                <td>${i}</td>
+                                <td>${data[i].Worker_id}</td>
+                                <td>${data[i].Start_Shift}</td>
+                                <td>${data[i].End_Shift}</td>
+                             </tr>`;
+                }
+                tableBody.innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function filterShifts() {
+        let workerID = document.getElementById("workerID").value;
+        let tableBody = document.getElementById("shiftTable");
+
+        fetch(`/workingHours/List/${workerID}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let html = '';
+                for (let i = 0; i < data.length; i++) {
+                    html += `<tr>
+                            <td>${i + 1}</td>
+                            <td>${data[i].Worker_id}</td>
+                            <td>${data[i].Start_Shift}</td>
+                            <td>${data[i].End_Shift}</td>
+                         </tr>`;
+                }
+                tableBody.innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
+    loadAllShifts();
+</script>
