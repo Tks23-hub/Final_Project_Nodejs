@@ -1,0 +1,32 @@
+in this project i built to tables
+1.workers {
+worker id so i can distinguish each worker i have in my store/factory.....
+we also need the workers first and last name so i did
+worker first name and worker last name s
+}
+2.work_time{
+worker id so i can know connect to the first list so i can know which worker
+and added 2 more colomuns to know the begining and ending the worker shift
+start shift takes the time in gmt time and thats the begining of the shift
+end shift also takes the time in gmt time and closes the shift to an end
+and if you dont enter anything for the end shift so the worker still in the shift
+and also added a shift id so the shift each time we start a shift with a worker
+we will be able to close it even after many worker starting and ending shifts
+}
+
+
+-i created 2 js files for making crud for each table
+
+-i created an ejs page named mainpage which is for adding useres and look at the list of all the workers
+
+-i created an ejs page named enter-leave and this one containg 2 buttons one for starting the shift and the other is for ending each time you click
+one of the buttons the js fetching the real time of gmt and send it to the table on the same shift id we have there
+
+-i created an ejs page named shifts so we can see all the shifts we have and we also can see each worker shift by typing the worker id
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-why i choose id methond instead of regular ->
+
+now i choose to use id's instead of names in fetching the shifts and clocking in or out because we might have alot of workers with the same first and last name
+so i used id's to identify each worker we want
+that what i saw before in factories when i worked they have so many workers that have the same first and last name so we used to clock into shifts only using our id's
