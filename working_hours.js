@@ -76,6 +76,7 @@ router.patch("/Edit/:row_id",(req, res) => {
         }
     });
 });
+
 router.delete("/Del/:row_id",(req, res) => {
     let id=req.params.row_id;
 
