@@ -1,16 +1,16 @@
-CREATE TABLE `Workers` (
-	`Worker_id` INT NOT NULL AUTO_INCREMENT,
-	`Worker_FirstName` varchar(250) NOT NULL,
-	`Worker_LastName` varchar(250) NOT NULL,
-	PRIMARY KEY (`Worker_id`)
+
+CREATE TABLE `workers` (
+    `Worker_id` INT NOT NULL AUTO_INCREMENT,
+    `Worker_FirstName` varchar(250) NOT NULL,
+    `Worker_LastName` varchar(250) NOT NULL,
+    PRIMARY KEY (`Worker_id`)
 );
 
-CREATE TABLE `Work_Time` (
-	`Worker_id` INT NOT NULL,
-	`Start_Shift` TIME NOT NULL,
-	`End_Shift` TIME,
-	`Shift_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
-	PRIMARY KEY (`Shift_id`)
+CREATE TABLE `work_time` (
+    `Worker_id` INT NOT NULL,
+    `Start_Shift` TIME NOT NULL,
+    `End_Shift` TIME,
+    `Shift_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+    PRIMARY KEY (`Shift_id`),
+    FOREIGN KEY (`Worker_id`) REFERENCES `workers`(`Worker_id`)
 );
-
-ALTER TABLE `Work_Time` ADD CONSTRAINT `Work_Time_fk0` FOREIGN KEY (`Worker_id`) REFERENCES `Workers`(`Worker_id`);
