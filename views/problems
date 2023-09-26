@@ -11,3 +11,6 @@ i did face some other issues in the code but it wasnt big issues it only took mi
 and figuring out how im gonna add shifts for each worker .........
 
 basicly the code took alot of time but after all it was a good outcome and less major errors that didnot make much time to be fixed
+
+
+3- i changed from time to datetime in my sql so i can get the date and time also
