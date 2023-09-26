@@ -1,4 +1,4 @@
-exports.HOST     = "localhost";
+exports.HOST   = "localhost";
 exports.USER     = "root";
 exports.PASSWORD = "";
 exports.DATABASE = "workers";
