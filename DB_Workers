@@ -9,8 +9,8 @@ CREATE TABLE `workers` (
 
 CREATE TABLE `work_time` (
     `Worker_id` INT NOT NULL,
-    `Start_Shift` TIME NOT NULL,
-    `End_Shift` TIME,
+    `Start_Shift` DATETIME NOT NULL,
+    `End_Shift` DATETIME,
     `Shift_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     PRIMARY KEY (`Shift_id`),
     FOREIGN KEY (`Worker_id`) REFERENCES `workers`(`Worker_id`)
