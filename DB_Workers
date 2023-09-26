@@ -6,6 +6,7 @@ CREATE TABLE `workers` (
     PRIMARY KEY (`Worker_id`)
 );
 
+
 CREATE TABLE `work_time` (
     `Worker_id` INT NOT NULL,
     `Start_Shift` TIME NOT NULL,
