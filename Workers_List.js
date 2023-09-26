@@ -43,24 +43,24 @@ router.patch("/Edit/:row_id",(req, res) => {
 
 router.delete("/Del/:row_id", (req, res) => {
     let id = req.params.row_id;
+    let removeShiftsQuery = `DELETE FROM work_time WHERE Worker_id='${id}'`;
 
-    let q = `DELETE FROM \`workers\` WHERE Worker_id='${id}'`;
-
-    db_pool.query(q, function (err, rows, fields) {
-
+    db_pool.query(removeShiftsQuery, function (err, rows, fields) {
         if (err) {
-            res.status(500).json({message: err})
-
+            res.status(500).json({ message: err });
         } else {
-            res.status(200).json({message: "OK"});
-
+            let deleteWorkerQuery = `DELETE FROM workers WHERE Worker_id='${id}'`;
+            db_pool.query(deleteWorkerQuery, function (err, rows, fields) {
+                if (err) {
+                    res.status(500).json({ message: err });
+                } else {
+                    res.status(200).json({ message: "OK" });
+                }
+            });
         }
-
     });
-
-
-
 });
+
 
 
 router.get("/List", (req, res) => {
@@ -75,11 +75,7 @@ router.get("/List", (req, res) => {
         } else {
             res.status(200).json(rows);
         }
-
     });
-
-
-
 });
 
 
