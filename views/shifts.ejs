@@ -26,17 +26,17 @@
             .then(response => response.json())
             .then(data => {
                 let html = '';
-                for (let i = 1; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     html += `<tr>
-                                <td>${i}</td>
-                                <td>${data[i].Worker_id}</td>
-                                <td>${data[i].Start_Shift}</td>
-                                <td>${data[i].End_Shift}</td>
-                             </tr>`;
+                            <td>${i + 1}</td>
+                            <td>${data[i].Worker_id}</td>
+                            <td>${data[i].Start_Shift}</td>
+                            <td>${data[i].End_Shift}</td>
+                         </tr>`;
                 }
                 tableBody.innerHTML = html;
             })
-
+            .catch(error => console.error('Error:', error));
     }
 
     function filterShifts() {
