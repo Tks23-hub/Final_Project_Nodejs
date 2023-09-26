@@ -29,35 +29,30 @@ router.post("/AddEnd", (req, res) => {
 
 
 router.get("/List", (req, res) => {
-
     let q = "SELECT * FROM `work_time`";
 
     db_pool.query(q, function (err, rows, fields) {
-
         if (err) {
-            res.status(500).json({message: err})
-
+            res.status(500).json({ message: err });
         } else {
             res.status(200).json(rows);
         }
-
     });
-
-    router.get("/List/:worker_id", (req, res) => {
-        let workerID = req.params.worker_id;
-        let q = `SELECT * FROM work_time WHERE Worker_id = ${workerID}`;
-
-        db_pool.query(q, function (err, rows, fields) {
-            if (err) {
-                res.status(500).json({message: err});
-            } else {
-                res.status(200).json(rows);
-            }
-        });
-    });
-
-
 });
+
+router.get("/List/:worker_id", (req, res) => {
+    let workerID = req.params.worker_id;
+    let q = `SELECT * FROM work_time WHERE Worker_id = ${workerID}`;
+
+    db_pool.query(q, function (err, rows, fields) {
+        if (err) {
+            res.status(500).json({ message: err });
+        } else {
+            res.status(200).json(rows);
+        }
+    });
+});
+
 
 router.patch("/Edit/:row_id",(req, res) => {
     let id=req.params.row_id;
